@@ -55,7 +55,7 @@ services:
      - discovery
      - configserver
     depends_on:
-     - neo4j
+     - postgres
   reviews:
       image: reviews
       ports:
@@ -71,7 +71,7 @@ services:
          - discovery
          - configserver
         depends_on:
-         - postgres
+         - neo4j
   gateway:
         image: gateway
         ports:

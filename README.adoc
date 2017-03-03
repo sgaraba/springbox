@@ -30,11 +30,13 @@
 
 Install docker and docker-compose
 
-Compile project with maven tool
-  -mvn clean package 
+Compile project with maven tool;
 
-Run app
-  -docker-compose up -d
+mvn clean package 
+
+Run app:
+
+docker-compose up -d
 
 +
 image::docs/homepage.png[]
