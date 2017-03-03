@@ -1,0 +1,60 @@
+server:
+  port: 9000
+
+security:
+  user:
+    password: password
+
+zuul:
+  routes:
+    catalog: /catalog/**
+    reviews: /reviews/**
+    recommendations: /recommendations/**
+    auth-service:
+            path: /uaa/**
+            url: http://auth-server:9999
+            stripPrefix: false
+            sensitiveHeaders:
+    user:
+      path: /user/**
+      url: http://auth-server:9999/uaa/user
+
+spring:
+  oauth2:
+    sso:
+      home:
+        secure: false
+        path: /,/**/*.html
+    client:
+      accessTokenUri: http://auth-server:9999/uaa/oauth/token
+      userAuthorizationUri: http://auth-server:9999/uaa/oauth/authorize
+      clientId: acme
+      clientSecret: acmesecret
+    resource:
+      userInfoUri: http://auth-server:9999/uaa/user
+  rabbitmq:
+    host: rabbitmq
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+eureka:
+  instance:
+    hostname: gateway
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+
+logging:
+  level:
+    org.springframework.security: INFO
+    org.springframework.cloud.netflix: INFO
+    com.netflix.zuul: INFO
+    io.springbox.apigateway: DEBUG

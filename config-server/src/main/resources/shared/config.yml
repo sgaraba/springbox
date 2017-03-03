@@ -1,0 +1,34 @@
+spring:
+  profiles:
+    active: development
+---
+
+spring:
+  profiles: development
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+        health:
+          repositories:
+            movie:
+              label: master
+server:
+  port: 8888
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+eureka:
+  instance:
+    hostname: configserver
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+

@@ -1,0 +1,29 @@
+server:
+  port: 8082
+spring:
+  oauth2:
+    resource:
+     userInfoUri: http://auth-server:9999/uaa/user
+  rabbitmq:
+      host: rabbitmq
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    hostname: recommendations
+
+ribbon:
+  eureka:
+    enabled: true
+
+neo4j:
+  uri: http://neo4j:7474/db/data/
+  username: neo4j
+  password: graphdb
+
+logging:
+  logging:
+    org.springframework.web: DEBUG
+    io.springbox.recommendations: DEBUG

@@ -1,0 +1,85 @@
+version: '2'
+services:
+  postgres:
+    restart: always
+    image: postgres:9.5.6
+    ports:
+      - "5432:5432"
+    container_name: postgres  
+    environment:
+      - DEBUG=false
+      - DB_USER=postgres
+      - DB_PASS=postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  neo4j:
+    image: neo4j:3.0
+    container_name: neo4j
+    environment:
+        NEO4J_AUTH: none
+    ports:
+     - "7474:7474"
+  mongodb:
+    image: mongo:2.4
+    container_name: mongodb
+    ports:
+     - "27017:27017"
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  discovery:
+    image: discovery
+    ports:
+     - "8761:8761"
+  configserver:
+    image: config-server
+    ports:
+     - "8888:8888"
+    links:
+     - discovery
+  auth-server:
+    image: auth-server
+    ports:
+     - "9999:9999"
+    links:
+     - discovery
+     - configserver
+  catalog:
+    image: catalog
+    ports:
+     - "8080:8080"
+    links:
+     - discovery
+     - configserver
+    depends_on:
+     - neo4j
+  reviews:
+      image: reviews
+      ports:
+       - "8081:8081"
+      links:
+       - discovery
+       - configserver
+  recommendations:
+        image: recommendations
+        ports:
+         - "8082:8082"
+        links:
+         - discovery
+         - configserver
+        depends_on:
+         - postgres
+  gateway:
+        image: gateway
+        ports:
+         - "9000:9000"
+        links:
+         - discovery
+         - configserver
+         - recommendations
+         - reviews
+         - catalog
+         - auth-server

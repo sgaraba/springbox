@@ -1,0 +1,58 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo:2.4
+    container_name: mongodb
+    ports:
+     - "27017:27017"
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 15672:15672
+      - 5672:5672
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  config:
+      image: config
+      ports:
+          - 8888:8888
+      restart: always
+      logging:
+        options:
+          max-size: "10m"
+          max-file: "10"
+
+  eureka:
+        image: registry
+        ports:
+            - 8761:8761
+        restart: always
+        logging:
+          options:
+            max-size: "10m"
+            max-file: "10"
+
+  gateway:
+      image: gateway
+      restart: always
+      ports:
+        - 80:9000
+      logging:
+        options:
+          max-size: "10m"
+          max-file: "10"
+
+  auth-service:
+        image: auth-service
+        ports:
+            - 9999:9999
+        restart: always
+        logging:
+          options:
+            max-size: "10m"
+            max-file: "10"
+

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: auth-server
+
+security:
+  user:
+    password: password
+
+server:
+  context-path: /uaa
+  port: 9999
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    hostname: auth-server

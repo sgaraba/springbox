@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: catalog
+  cloud:
+    config:
+      uri: http://configserver:8888
+encrypt:
+  failOnError: false
+

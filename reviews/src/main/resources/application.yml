@@ -1,0 +1,25 @@
+server:
+  port: 8081
+spring:
+  oauth2:
+    resource:
+      userInfoUri: http://auth-server:9999/uaa/user
+  data:
+      mongodb:
+        host: mongodb
+        database: springbox
+        port: 27017
+  rabbitmq:
+      host: rabbitmq
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    hostname: reviews
+
+ribbon:
+  eureka:
+    enabled: true
+

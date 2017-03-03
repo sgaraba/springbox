@@ -1,0 +1,15 @@
+---
+applications:
+- name: catalog
+  host: catalog-${random-word}
+  memory: 512M
+  instances: 1
+  timeout: 90
+  path: target/catalog-0.0.1-SNAPSHOT.jar
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+  services:
+    - catalog-db
+    - config-service
+    - cloud-bus-amqp
+    - service-registry
