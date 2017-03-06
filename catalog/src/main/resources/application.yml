@@ -1,4 +1,9 @@
+server:
+  port: 8080
 spring:
+  oauth2:
+    resource:
+      userInfoUri: http://auth-server:9999/uaa/user
   jpa:
     show-sql: true
     hibernate:
@@ -22,6 +27,8 @@ eureka:
 ribbon:
   eureka:
     enabled: true
+
+
 
 
 

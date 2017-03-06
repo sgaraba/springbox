@@ -19,9 +19,10 @@ ribbon:
     enabled: true
 
 neo4j:
-  uri: http://neo4j:7474/db/data/
+  uri: http://neo4j-db:7474/db/data/
   username: neo4j
   password: graphdb
+  bootstrap: true
 
 logging:
   logging:
